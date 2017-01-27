@@ -32,6 +32,20 @@
             $tweet.appendTo($section);
             index -= 1;
           }
+          function showNewTweet() {
+            index += 1;
+            tweet = streams.home[index];
+            date = tweet.created_at;
+            timeStamp = '- ' + addZero(date.getHours()) + ':' + addZero(date.getMinutes()) + ':' + addZero(date.getSeconds());
+            $tweet = $('<div></div>');
+
+            user = tweet.user
+            $tweet.addClass(user);
+            $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + timeStamp);
+            $tweet.insertBefore($('div').first());  
+          }
+
+          $('button').on('click', showNewTweet);
 
         });
       </script>
