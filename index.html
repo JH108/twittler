@@ -72,9 +72,13 @@
             });
           });
 
-          // $('div').on('click', function() {
-          //   $(this).toggleClass('focus');
-          // });
+          $('div').on('mouseenter', function() {
+            $(this).addClass('focus');
+          });
+          $('div').on('mouseleave', function() {
+            $(this).removeClass('focus');
+          });
+
 
         });
       </script>
