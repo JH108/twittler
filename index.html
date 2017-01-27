@@ -28,6 +28,9 @@
             var timeStamp = '- ' + addZero(date.getHours()) + ':' + addZero(date.getMinutes()) + ':' + addZero(date.getSeconds());
             var $tweet = $('<div></div>');
 
+            var user = tweet.user
+            $tweet.addClass(user);
+
             $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + timeStamp);
             $tweet.appendTo($section);
             index -= 1;
@@ -48,6 +51,24 @@
             return (n < 10 ? '0': '') + n;
           }
           $('button').on('click', showNewTweet);
+
+          $('div').on('mouseenter', function() {
+            var currentUser = $(this).attr('class');
+            $('div').on('click', function() {
+              $section = $('section');
+              $section.html('');
+              var userIndex = streams.users[currentUser].length - 1;
+              while(userIndex >= 0) {
+                date = streams.users[currentUser][userIndex].created_at;
+                timeStamp = '- ' + addZero(date.getHours()) + ':' + addZero(date.getMinutes()) + ':' + addZero(date.getSeconds());
+                $tweet = $('<div></div>');
+                $tweet.text('@' + currentUser + ': ' + streams.users[currentUser][userIndex].message + ' ' + timeStamp);
+                $tweet.appendTo($section);
+
+                userIndex -= 1;
+              }
+            });
+          });
 
         });
       </script>
