@@ -47,4 +47,18 @@ table {
 	border-spacing: 0;
 }
 
+/*
+  Flexbox Styles
+*/
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.child {
+  width: 33%;
+  margin: auto;
+}
 
