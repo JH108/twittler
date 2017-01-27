@@ -44,7 +44,9 @@
             $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + timeStamp);
             $tweet.insertBefore($('div').first());  
           }
-
+          function addZero(n) {
+            return (n < 10 ? '0': '') + n;
+          }
           $('button').on('click', showNewTweet);
 
         });
