@@ -90,3 +90,20 @@ div {
 body {
   background-color: #4f3913;
 }
+
+/*
+  Animation Styles
+*/
+
+@keyframes expand {
+  0% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1.75, 1.4);
+  }
+}
+
+.focus {
+  transform: scale(2, 2);
+}
