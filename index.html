@@ -9,7 +9,7 @@
 
     <header class="child">
       <form>
-        
+
         <button>Next Tweet</button>
 
       </form>
@@ -35,7 +35,24 @@
             $tweet.appendTo($section);
             index -= 1;
           }
-          function showNewTweet() {
+
+          function addZero(n) {
+            return (n < 10 ? '0': '') + n;
+          }
+
+          function expandTweet() {
+            $('div').on('mouseenter', function() {
+              $(this).addClass('focus');
+            });
+          }
+          function contractTweet() {
+            $('div').on('mouseleave', function() {
+              $(this).removeClass('focus');
+            });
+          }
+
+          $('button').on('click', function(event) {
+            event.preventDefault();
             index += 1;
             tweet = streams.home[index];
             date = tweet.created_at;
@@ -45,20 +62,53 @@
             user = tweet.user
             $tweet.addClass(user);
             $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + timeStamp);
-            $tweet.insertBefore($('div').first());  
-          }
-          function addZero(n) {
-            return (n < 10 ? '0': '') + n;
-          }
-          $('button').on('click', showNewTweet);
+            $tweet.insertBefore($('div').first());
+
+            // needed this here so that I would be able to click on the div elements that the button created
+            $('div').on('mouseenter', function() {
+              // split the returned class into a string because I only need the first one.
+              var currentUser = $(this).attr('class').split(' ')[0];
+              $('div').on('click', function() {
+
+                $section = $('section');
+                $section.html('');
+                $('button').text('Back to Feed');
+                $('button').on('click', function() {
+                  location.reload();
+                });
+                var userIndex = streams.users[currentUser].length - 1;
+                while(userIndex >= 0) {
+                  date = streams.users[currentUser][userIndex].created_at;
+                  timeStamp = '- ' + addZero(date.getHours()) + ':' + addZero(date.getMinutes()) + ':' + addZero(date.getSeconds());
+                  $tweet = $('<div></div>');
+                  $tweet.text('@' + currentUser + ': ' + streams.users[currentUser][userIndex].message + ' ' + timeStamp);
+                  $tweet.appendTo($section);
+
+                  userIndex -= 1;
+                }
+
+                expandTweet();
+                contractTweet();
+
+              });
+
+            });
+            // needed this here so that I was able to expand and contract the tweets the button created.
+            expandTweet();
+            contractTweet();
+
+          });
 
           $('div').on('mouseenter', function() {
             var currentUser = $(this).attr('class');
             $('div').on('click', function() {
+
               $section = $('section');
               $section.html('');
               $('button').text('Back to Feed');
-
+              $('button').on('click', function() {
+                location.reload();
+              });
               var userIndex = streams.users[currentUser].length - 1;
               while(userIndex >= 0) {
                 date = streams.users[currentUser][userIndex].created_at;
@@ -69,20 +119,19 @@
 
                 userIndex -= 1;
               }
+
+              expandTweet();
+              contractTweet();
+
             });
+
           });
 
-          $('div').on('mouseenter', function() {
-            $(this).addClass('focus');
-          });
-          $('div').on('mouseleave', function() {
-            $(this).removeClass('focus');
-          });
-
+         expandTweet();
+         contractTweet();
 
         });
       </script>
     </section>
-
   </body>
 </html>
