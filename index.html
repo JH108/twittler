@@ -3,25 +3,35 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
-  <body>
-    <script>
+  <body class="container">
 
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+    <header class="child">
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+    </header>
 
-      });
+    <section id="tweets" class="child">
+      <script>
+        $(document).ready(function() {
+          var $section = $('section');
+          $section.html('');
 
-    </script>
+          var index = streams.home.length - 1;
+          while(index >= 0){
+            var tweet = streams.home[index];
+            var date = tweet.created_at;
+            var timeStamp = '- ' + addZero(date.getHours()) + ':' + addZero(date.getMinutes()) + ':' + addZero(date.getSeconds());
+            var $tweet = $('<div></div>');
+
+            $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + timeStamp);
+            $tweet.appendTo($section);
+            index -= 1;
+          }
+
+        });
+      </script>
+    </section>
+
   </body>
 </html>
