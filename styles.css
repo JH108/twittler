@@ -62,3 +62,13 @@ table {
   margin: auto;
 }
 
+/*
+  Button Styles
+*/
+button {
+  border-radius: 10px;
+  border-color: #2393E8;
+  margin: 20px 0 10px 0;
+  background-color: #42A9A5;
+  font-size: 20px;
+}
