@@ -57,6 +57,8 @@
             $('div').on('click', function() {
               $section = $('section');
               $section.html('');
+              $('button').text('Back to Feed');
+
               var userIndex = streams.users[currentUser].length - 1;
               while(userIndex >= 0) {
                 date = streams.users[currentUser][userIndex].created_at;
