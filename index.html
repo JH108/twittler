@@ -10,7 +10,9 @@
     <header class="child">
       <form>
 
-        <button>Next Tweet</button>
+        <button id="tweet">Next Tweet</button>
+
+        <button id="change-color">Change Color</button>
 
       </form>
     </header>
@@ -18,6 +20,12 @@
     <section id="tweets" class="child">
       <script>
         $(document).ready(function() {
+          $('button#change-color').on('click', function(event) {
+            event.preventDefault();
+            $('div').toggleClass('alternate-div');
+            $('body').toggleClass('alternate-body');
+            $('button').toggleClass('alternate-button');
+          });
           var $section = $('section');
           $section.html('');
 
@@ -51,7 +59,7 @@
             });
           }
 
-          $('button').on('click', function(event) {
+          $('button#tweet').on('click', function(event) {
             event.preventDefault();
             index += 1;
             tweet = streams.home[index];
@@ -72,8 +80,8 @@
 
                 $section = $('section');
                 $section.html('');
-                $('button').text('Back to Feed');
-                $('button').on('click', function() {
+                $('button#tweet').text('Back to Feed');
+                $('button#tweet').on('click', function() {
                   location.reload();
                 });
                 var userIndex = streams.users[currentUser].length - 1;
@@ -105,8 +113,8 @@
 
               $section = $('section');
               $section.html('');
-              $('button').text('Back to Feed');
-              $('button').on('click', function() {
+              $('button#tweet').text('Back to Feed');
+              $('button#tweet').on('click', function() {
                 location.reload();
               });
               var userIndex = streams.users[currentUser].length - 1;
